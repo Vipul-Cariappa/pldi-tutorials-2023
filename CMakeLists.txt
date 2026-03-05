@@ -25,12 +25,15 @@ if( CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR )
   
   ## Define supported version of clang and llvm
 
-  set(CLANG_MIN_SUPPORTED 17.0)
-  set(CLANG_MAX_SUPPORTED "17.0.x")
-  set(CLANG_VERSION_UPPER_BOUND 17.1.0)
-  set(LLVM_MIN_SUPPORTED 17.0)
-  set(LLVM_MAX_SUPPORTED "17.0.x")
-  set(LLVM_VERSION_UPPER_BOUND 17.1.0)
+  set(CLANG_MIN_SUPPORTED 19.0)
+  set(CLANG_MAX_SUPPORTED "22.1.x")
+  set(CLANG_VERSION_UPPER_BOUND 23.0.0)
+  set(LLD_MIN_SUPPORTED 19.0)
+  set(LLD_MAX_SUPPORTED "22.1.x")
+  set(LLD_VERSION_UPPER_BOUND 23.0.0)
+  set(LLVM_MIN_SUPPORTED 19.0)
+  set(LLVM_MAX_SUPPORTED "22.1.x")
+  set(LLVM_VERSION_UPPER_BOUND 23.0.0)
 
   ## Set Cmake packages search order
 
@@ -132,22 +135,13 @@ if( CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR )
   message(STATUS "Found supported version: Clang ${CLANG_PACKAGE_VERSION}")
   message(STATUS "Using ClangConfig.cmake in: ${Clang_DIR}")
 
-  ## Clang 13 require c++14 or later, Clang 16 require c++17 or later.
-  if (CLANG_VERSION_MAJOR GREATER_EQUAL 16)
-    if (NOT CMAKE_CXX_STANDARD)
-      set (CMAKE_CXX_STANDARD 17)
-    endif()
-    if (CMAKE_CXX_STANDARD LESS 17)
-      message(fatal "LLVM/InterOp requires c++17 or later")
-    endif()
-  elseif (CLANG_VERSION_MAJOR GREATER_EQUAL 13)
-    if (NOT CMAKE_CXX_STANDARD)
-      set (CMAKE_CXX_STANDARD 14)
-    endif()
-    if (CMAKE_CXX_STANDARD LESS 14)
-      message(fatal "LLVM/InterOp requires c++14 or later")
-    endif()
-  endif()
+## Clang 18 require c++17 or later.
+if (NOT CMAKE_CXX_STANDARD)
+  set (CMAKE_CXX_STANDARD 17)
+endif()
+if (CMAKE_CXX_STANDARD LESS 17)
+  message(fatal "LLVM/CppInterOp requires c++17 or later")
+endif()
 
   ## Init
 
