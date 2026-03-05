@@ -9,6 +9,8 @@
 #include "clang/Sema/Lookup.h"
 #include "clang/Sema/TemplateDeduction.h"
 
+#include "llvm/ExecutionEngine/Orc/LLJIT.h"
+#include "llvm/Support/ManagedStatic.h"
 #include "llvm/Support/TargetSelect.h"
 
 #include <memory>

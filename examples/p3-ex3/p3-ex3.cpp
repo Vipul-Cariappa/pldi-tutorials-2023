@@ -6,6 +6,7 @@
 #include "clang/Frontend/CompilerInstance.h"
 #include "clang/Interpreter/Interpreter.h"
 
+#include "llvm/ExecutionEngine/Orc/LLJIT.h"
 #include "llvm/Support/ManagedStatic.h" // llvm_shutdown
 #include "llvm/Support/TargetSelect.h"
 

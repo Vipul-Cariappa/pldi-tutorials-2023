@@ -7,6 +7,7 @@
 //   $LLVM_DIR/bin/opt -load-pass-plugin=$TUTORIAL_BUILD_DIR/lib/p1-ex3.lib -passes="modopt,dce" -S ex.ll
 // You should see srem instruction is replaced by select instruction.
 
+#include "llvm/IR/IRBuilder.h"
 #include "llvm/IR/LegacyPassManager.h"
 #include "llvm/IR/PatternMatch.h"
 #include "llvm/Passes/PassBuilder.h"

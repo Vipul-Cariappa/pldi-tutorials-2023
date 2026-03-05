@@ -25,10 +25,10 @@ jobs:
 #            os: ubuntu-22.04
 #            compiler: gcc-9
 #            clang-runtime: '16'
-          - name: ubu22-gcc12-clang-repl-17-fb7f50a
+          - name: ubu22-gcc12-clang-repl-21
             os: ubuntu-latest
             compiler: gcc-12
-            clang-runtime: 'fb7f50a'
+            clang-runtime: '21'
     steps:
     - uses: actions/checkout@v3
       with:
@@ -36,7 +36,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.10'
+        python-version: '3.12'
     - name: Save PR Info
       run: |
         mkdir -p ./pr
@@ -132,7 +132,7 @@ jobs:
               -DLLVM_USE_LINKER=lld       \
               -DBUILD_SHARED_LIBS=ON      \
               ../
-        cmake --build . --target check-tutorials --parallel $(nproc --all)
+        cmake --build . --target check-tutorials all --parallel $(nproc --all)
         cd ..
     - name: Show debug info
       if: ${{ failure() }}
