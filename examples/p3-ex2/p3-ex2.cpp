@@ -32,7 +32,7 @@ int main() {
   std::unique_ptr<Interpreter> Interp
       = ExitOnErr(Interpreter::create(std::move(CI)));
 
-  llvm::LineEditor LE("pldi-cpp-repl");
+  llvm::LineEditor LE("using-std-cpp-repl");
   bool HadError = false;
   while (std::optional<std::string> Line = LE.readLine()) {
     if (*Line == "%quit")

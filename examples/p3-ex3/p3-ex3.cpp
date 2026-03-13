@@ -42,12 +42,12 @@ int main() {
   ExitOnErr(Interp->ParseAndExecute(R"(extern "C" int square(int x){return x*x;}
                                        square(12)
                                       )", &V));
-  printf("From JIT: square(12)=%d\n", V.getInt());
+  printf("From JIT: square(12) = %d\n", V.getInt());
 
   // Or just get the function pointer and call it from compiled code:
   auto SymAddr = ExitOnErr(Interp->getSymbolAddress("square"));
   auto squarePtr = SymAddr.toPtr<int(*)(int)>();
-  printf("From compiled code: square(13)=%d\n", squarePtr(13));
+  printf("From compiled code: square(13) = %d\n", squarePtr(13));
 
   // Can we instantiate templates on demand?
 }

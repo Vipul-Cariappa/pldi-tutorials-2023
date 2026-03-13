@@ -19,18 +19,8 @@ ComplexNumber<int> c; // variable
 int main() {
   using namespace clang;
   auto ASTU = tooling::buildASTFromCodeWithArgs(Code, /*Args=*/{"-std=c++20"});
-  ASTContext &C = ASTU->getASTContext();
-  TranslationUnitDecl* TU = C.getTranslationUnitDecl();
-  // TU->dump();
-
-  for (Decl *D : TU->decls()) {
-    if (!isa<ClassTemplateDecl>(D))
-      continue;
-    comments::FullComment* FC = C.getCommentForDecl(D, &ASTU->getPreprocessor());
-    // FC->dump();
-    auto* PC = cast<comments::ParagraphComment>(*FC->child_begin());
-    auto* TC = cast<comments::TextComment>(*PC->child_begin());
-    printf("Comment: '%s'\n", TC->getText().str().data());
-  }
+  auto &C = ASTU->getASTContext();
+  auto* TU = C.getTranslationUnitDecl();
+  TU->dump();
   // Can we feed more code and use clang as a service?
 }
