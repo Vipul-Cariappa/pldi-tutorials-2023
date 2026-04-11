@@ -24,7 +24,7 @@ class A {};
 class B : public A {
    public:
     template <typename T>
-    void callme(T*) {
+    static void callme(T*) {
         printf("Template parameter type: %s\n", typeid(T).name());
     }
 };
@@ -119,21 +119,24 @@ def cpp_allocate(proxy):
 if __name__ == "__main__":
     # create a couple of types to play with
     CppA = type("A", (), {"handle": gIL.get_scope("A"), "__new__": cpp_allocate})
-    h = gIL.get_scope("B")
     CppB = type(
         "B",
         (CppA,),
-        {"handle": h, "__new__": cpp_allocate, "callme": TemplateWrapper(h, "callme")},
+        {
+            "handle": gIL.get_scope("B"),
+            "__new__": cpp_allocate,
+            "callme": TemplateWrapper(gIL.get_scope("B"), "callme"),
+        },
     )
 
     # call templates
     a = CppA()
     b = CppB()
 
-    # explicit template instantiation
-    b.callme["A"](a)
+    # # explicit template instantiation
+    # b.callme["A"](a)
 
-    # implicit template instantiation
-    b.callme(b)
+    # # implicit template instantiation
+    # b.callme(b)
 
     # Based on thas approach we can make this work: std.vector['int'] v = ...;
